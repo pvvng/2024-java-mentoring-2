@@ -23,7 +23,7 @@ public class LottoDomain {
         return num;
     }
 
-    public List<LottoTicket> getLottoTickets(LottoNumberGenerator lottoNumberGenerator, int lottoTicketCount) {
+    public LottoTickets getLottoTickets(LottoNumberGenerator lottoNumberGenerator, int lottoTicketCount) {
         List<LottoTicket> lottoTickets = new ArrayList<>();
 
         for (int i = 0; i < lottoTicketCount; i++) {
@@ -31,7 +31,7 @@ public class LottoDomain {
             lottoTickets.add(lottoTicket);
         }
 
-        return lottoTickets;
+        return new LottoTickets(lottoTickets);
     }
 
     private LottoTicket buildLottoTicket(LottoNumberGenerator lottoNumberGenerator) {
