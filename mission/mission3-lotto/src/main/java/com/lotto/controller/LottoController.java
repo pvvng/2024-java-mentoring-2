@@ -11,4 +11,9 @@ public class LottoController {
         this.inputView = inputView;
         this.outputView = outputView;
     }
+
+    public void buyLotto(){
+        outputView.showPurchaseAmount();
+        String userPurchaseAmount = inputView.getInput();
+    }
 }
