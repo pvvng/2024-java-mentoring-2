@@ -3,7 +3,9 @@ package com.lotto.domain;
 import com.lotto.domain.exception.UnderMinPriceErrorException;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class LottoDomain {
     private final int LOTTO_TICKET_PRICE = 1000;
@@ -33,11 +35,12 @@ public class LottoDomain {
     }
 
     private LottoTicket buildLottoTicket(LottoNumberGenerator lottoNumberGenerator) {
-        List<Integer> lottoNumbers = new ArrayList<>();
+        Set<Integer> lottoNumbers = new HashSet<>();
 
-        for (int i = 0; i < LOTTO_TICKET_LENGTH; i++) {
+        while(lottoNumbers.size() != LOTTO_TICKET_LENGTH){
             lottoNumbers.add(lottoNumberGenerator.getRandomNumber());
         }
+
 
         return new LottoTicket(lottoNumbers);
     }

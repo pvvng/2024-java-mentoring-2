@@ -1,6 +1,6 @@
 package com.lotto.domain;
 
-import java.util.List;
+import java.util.Set;
 
-public record LottoTicket(List<Integer> lottoNumbers) {
+public record LottoTicket(Set<Integer> lottoNumbers) {
 }
