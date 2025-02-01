@@ -21,7 +21,18 @@ public class LottoDomain {
         return num;
     }
 
-    public LottoTicket buildLottoTicket(LottoNumberGenerator lottoNumberGenerator) {
+    public List<LottoTicket> getLottoTickets(LottoNumberGenerator lottoNumberGenerator, int lottoTicketCount) {
+        List<LottoTicket> lottoTickets = new ArrayList<>();
+
+        for (int i = 0; i < lottoTicketCount; i++) {
+            LottoTicket lottoTicket = buildLottoTicket(lottoNumberGenerator);
+            lottoTickets.add(lottoTicket);
+        }
+
+        return lottoTickets;
+    }
+
+    private LottoTicket buildLottoTicket(LottoNumberGenerator lottoNumberGenerator) {
         List<Integer> lottoNumbers = new ArrayList<>();
 
         for (int i = 0; i < LOTTO_TICKET_LENGTH; i++) {
@@ -30,5 +41,4 @@ public class LottoDomain {
 
         return new LottoTicket(lottoNumbers);
     }
-
 }
