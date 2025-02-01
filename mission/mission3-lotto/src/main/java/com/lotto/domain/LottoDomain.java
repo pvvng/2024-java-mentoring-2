@@ -23,6 +23,16 @@ public class LottoDomain {
         return num;
     }
 
+    public String getFormattedLottoTickets(LottoTickets lottoTickets){
+        StringBuilder formatedTickets = new StringBuilder();
+
+        for(LottoTicket lottoTicket : lottoTickets.lottoTickets()){
+            formatedTickets.append(lottoTicket.lottoNumbers()).append("\n");
+        }
+
+        return formatedTickets.toString();
+    }
+
     public LottoTickets getLottoTickets(LottoNumberGenerator lottoNumberGenerator, int lottoTicketCount) {
         List<LottoTicket> lottoTickets = new ArrayList<>();
 
@@ -40,7 +50,6 @@ public class LottoDomain {
         while(lottoNumbers.size() != LOTTO_TICKET_LENGTH){
             lottoNumbers.add(lottoNumberGenerator.getRandomNumber());
         }
-
 
         return new LottoTicket(lottoNumbers);
     }
