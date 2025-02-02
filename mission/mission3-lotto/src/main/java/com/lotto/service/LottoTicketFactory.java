@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class LottoTicketFactory {
+
     private final LottoNumberGenerator lottoNumberGenerator;
     private final int LOTTO_TICKET_LENGTH = 6;
 

@@ -11,6 +11,7 @@ import com.lotto.view.OutputView;
 import java.util.List;
 
 public class LottoController {
+
     private final InputView inputView;
     private final OutputView outputView;
     private final LottoService lottoService;

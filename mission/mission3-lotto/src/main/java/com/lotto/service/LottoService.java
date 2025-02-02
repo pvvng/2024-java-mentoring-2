@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LottoService {
+
     private final LottoTicketFactory lottoTicketFactory;
     private final IntegerParser integerParser = new IntegerParser();
     private final LottoDomain lottoDomain = new LottoDomain();

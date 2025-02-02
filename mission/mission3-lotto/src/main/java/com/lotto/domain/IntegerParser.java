@@ -4,6 +4,7 @@ import com.lotto.domain.exception.NaNErrorException;
 import com.lotto.domain.exception.NotIntegerException;
 
 public class IntegerParser {
+
     public int parseInteger(String str) {
         try {
             return isInteger(str);
