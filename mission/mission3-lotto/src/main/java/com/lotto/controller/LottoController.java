@@ -1,49 +1,50 @@
 package com.lotto.controller;
 
-import com.lotto.domain.IntegerParser;
-import com.lotto.domain.LottoDomain;
-import com.lotto.domain.LottoNumberGenerator;
-import com.lotto.domain.LottoTickets;
+import com.lotto.service.LottoService;
+import com.lotto.service.DTO.LottoTicketDTO;
+import com.lotto.service.DTO.RequestLottoTicketCountDTO;
+import com.lotto.service.DTO.ResponseLottoTicketCountDTO;
 
 import com.lotto.view.InputView;
 import com.lotto.view.OutputView;
 
+import java.util.List;
+
 public class LottoController {
     private final InputView inputView;
     private final OutputView outputView;
-    private final LottoDomain lottoDomain;
-    private final IntegerParser integerParser;
-    private final LottoNumberGenerator lottoNumberGenerator;
+    private final LottoService lottoService;
 
-    public LottoController(InputView inputView, OutputView outputView) {
+    public LottoController(InputView inputView, OutputView outputView, LottoService lottoService) {
         this.inputView = inputView;
         this.outputView = outputView;
-        this.lottoDomain = new LottoDomain();
-        this.integerParser = new IntegerParser();
-        this.lottoNumberGenerator = new LottoNumberGenerator();
+        this.lottoService = lottoService;
     }
 
     public void runLottoApp() {
         outputView.showPurchaseAmount();
 
         String stringPurchaseAmount = inputView.getInput();
-        int lottoTicketCount = getLottoTicketCount(stringPurchaseAmount);
+
+        ResponseLottoTicketCountDTO responseLottoTicketCountDTO = createLottoTicketCountDTO(stringPurchaseAmount);
+        int lottoTicketCount = responseLottoTicketCountDTO.purchaseAmount();
 
         outputView.showPurchaseHistory(lottoTicketCount);
-        outputView.showLotto(getLottoTicketsString(lottoTicketCount));
+
+        List<LottoTicketDTO> lottoTicketDTOs = lottoService.getLottoTicketDTOs(lottoTicketCount);
+        showPurchasedLottoTickets(lottoTicketDTOs);
     }
 
-    private int getLottoTicketCount(String stringPurchaseAmount) {
-        int purchaseAmount = integerParser.parseInteger(stringPurchaseAmount);
-        int verifiedPurchaseAmount = lottoDomain.isUnderMinimumLottoPrice(purchaseAmount);
+    private ResponseLottoTicketCountDTO createLottoTicketCountDTO(String stringPurchaseAmount){
+        RequestLottoTicketCountDTO requestLottoTicketCountDTO =  new RequestLottoTicketCountDTO(stringPurchaseAmount);
 
-        return lottoDomain.calculateLottoTicketCount(verifiedPurchaseAmount);
+        return lottoService.getLottoTicketCountDTO(requestLottoTicketCountDTO);
     }
 
-    private String getLottoTicketsString(int lottoTicketCount){
-        LottoTickets lottoTickets = lottoDomain.getLottoTickets(lottoNumberGenerator, lottoTicketCount);
-
-        return lottoDomain.getFormattedLottoTickets(lottoTickets);
+    private void showPurchasedLottoTickets(List<LottoTicketDTO> lottoTicketDTOs){
+        for(LottoTicketDTO lottoTicketDTO : lottoTicketDTOs){
+            outputView.showLotto(lottoTicketDTO.LottoNumbers().toString());
+        }
     }
 
 }
