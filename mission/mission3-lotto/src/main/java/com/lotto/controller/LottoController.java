@@ -23,7 +23,7 @@ public class LottoController {
         this.lottoNumberGenerator = new LottoNumberGenerator();
     }
 
-    public void buyLotto() {
+    public void runLottoApp() {
         outputView.showPurchaseAmount();
 
         String stringPurchaseAmount = inputView.getInput();

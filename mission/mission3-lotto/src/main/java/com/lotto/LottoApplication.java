@@ -11,7 +11,7 @@ public class LottoApplication {
 
         LottoController lottoController = new LottoController(inputView, outputView);
 
-        lottoController.buyLotto();
+        lottoController.runLottoApp();
     }
 
 }
