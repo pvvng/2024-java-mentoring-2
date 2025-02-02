@@ -7,4 +7,5 @@ public class LottoNumberGenerator {
     public int getRandomNumber() {
         return (int) (Math.random() * MAX_LOTTO_NUMBER) + MIN_LOTTO_NUMBER;
     }
+
 }

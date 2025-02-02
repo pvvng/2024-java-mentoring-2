@@ -12,4 +12,5 @@ public class OutputView {
     public void showLotto(String lotto){
         System.out.println(lotto);
     }
+
 }

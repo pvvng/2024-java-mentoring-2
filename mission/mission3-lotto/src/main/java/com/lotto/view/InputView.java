@@ -8,4 +8,5 @@ public class InputView {
     public String getInput(){
         return scanner.next();
     }
+
 }

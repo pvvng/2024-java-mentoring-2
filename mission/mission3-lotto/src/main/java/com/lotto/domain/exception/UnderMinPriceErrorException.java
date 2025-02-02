@@ -4,4 +4,5 @@ public class UnderMinPriceErrorException extends RuntimeException {
     public UnderMinPriceErrorException(String message) {
         super(message);
     }
+
 }

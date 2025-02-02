@@ -21,4 +21,5 @@ public class IntegerParser {
 
         return (int) doubleStr;
     }
+
 }

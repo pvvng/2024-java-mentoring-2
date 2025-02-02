@@ -45,4 +45,5 @@ public class LottoController {
 
         return lottoDomain.getFormattedLottoTickets(lottoTickets);
     }
+
 }

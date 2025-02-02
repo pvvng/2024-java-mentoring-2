@@ -53,4 +53,5 @@ public class LottoDomain {
 
         return new LottoTicket(lottoNumbers);
     }
+
 }
