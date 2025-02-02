@@ -15,12 +15,12 @@ public class LottoTicketFactory {
     }
 
     public LottoTicket getLottoTicket() {
-        Set<Integer> lottoNumbers = buildLottoNumbers();
+        Set<Integer> lottoNumbers = createLottoNumbers();
 
         return new LottoTicket(lottoNumbers);
     }
 
-    private Set<Integer> buildLottoNumbers() {
+    private Set<Integer> createLottoNumbers() {
         Set<Integer> lottoNumbers = new HashSet<>();
 
         while (lottoNumbers.size() != LOTTO_TICKET_LENGTH) {
