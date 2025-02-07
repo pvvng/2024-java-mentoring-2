@@ -15,7 +15,7 @@ public record LottoTicket(List<LottoNumber> lottoTicket) {
     @Override
     public String toString() {
         return lottoTicket.stream()
-                .map(LottoNumber::getLottoNumber)
+                .map(LottoNumber::lottoNumber)
                 .toList()
                 .toString();
     }
