@@ -16,6 +16,10 @@ public class LottoTicket {
         this.lottoTicket = lottoTicket;
     }
 
+    public List<LottoNumber> getLottoTicket() {
+        return lottoTicket;
+    }
+
     private void validateTicketLength(List<LottoNumber> lottoTicket){
         if(lottoTicket.size() != LottoConfig.LOTTO_TICKET_LENGTH){
             throw new InvalidTicketLength(ErrorMessage.INVALID_TICKET_LENGTH_ERROR.getMessage());
