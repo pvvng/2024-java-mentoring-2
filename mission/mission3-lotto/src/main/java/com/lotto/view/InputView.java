@@ -6,8 +6,8 @@ public class InputView {
 
     private final Scanner scanner = new Scanner(System.in);
 
-    public String getInput(){
-        return scanner.next();
+    public int getPurchaseAmount(){
+        return scanner.nextInt();
     }
 
 }
