@@ -6,18 +6,10 @@ import com.lotto.common.exception.InvalidTicketLength;
 
 import java.util.List;
 
-public class LottoTicket {
+public record LottoTicket(List<LottoNumber> lottoTicket) {
 
-    private final List<LottoNumber> lottoTicket;
-
-    public LottoTicket(List<LottoNumber> lottoTicket) {
+    public LottoTicket {
         validateTicketLength(lottoTicket);
-
-        this.lottoTicket = lottoTicket;
-    }
-
-    public List<LottoNumber> getLottoTicket() {
-        return lottoTicket;
     }
 
     @Override
@@ -28,8 +20,8 @@ public class LottoTicket {
                 .toString();
     }
 
-    private void validateTicketLength(List<LottoNumber> lottoTicket){
-        if(lottoTicket.size() != LottoConfig.LOTTO_TICKET_LENGTH){
+    private void validateTicketLength(List<LottoNumber> lottoTicket) {
+        if (lottoTicket.size() != LottoConfig.LOTTO_TICKET_LENGTH) {
             throw new InvalidTicketLength(ErrorMessage.INVALID_TICKET_LENGTH_ERROR.getMessage());
         }
     }
