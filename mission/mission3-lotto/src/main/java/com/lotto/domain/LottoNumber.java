@@ -20,7 +20,7 @@ public class LottoNumber {
 
     private void validateLottoNumber(int lottoNumber) {
         if(lottoNumber < LottoConfig.MIN_LOTTO_NUMBER || lottoNumber > LottoConfig.MAX_LOTTO_NUMBER){
-            throw new InvalidLottoNumberException(ErrorMessage.NOT_INTEGER_ERROR.getMessage());
+            throw new InvalidLottoNumberException(ErrorMessage.INVALID_LOTTO_NUMBER_ERROR.getMessage());
         }
     }
 
