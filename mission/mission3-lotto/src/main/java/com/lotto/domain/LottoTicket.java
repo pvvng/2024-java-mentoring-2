@@ -30,7 +30,7 @@ public record LottoTicket(List<LottoNumber> lottoTicket) {
     }
 
     private void validateTicketLength(List<LottoNumber> lottoTicket) {
-        if (lottoTicket.size() != LottoConfig.LOTTO_TICKET_LENGTH) {
+        if (lottoTicket.size() != LottoConfig.LOTTO_TICKET_LENGTH.getConfig()) {
             throw new InvalidTicketLength(ErrorMessage.INVALID_TICKET_LENGTH_ERROR.getMessage());
         }
     }

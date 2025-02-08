@@ -1,10 +1,20 @@
 package com.lotto.common;
 
-public class LottoConfig {
+public enum LottoConfig {
 
-    public static final int MIN_LOTTO_NUMBER = 1;
-    public static final int MAX_LOTTO_NUMBER = 45;
-    public static final int LOTTO_PRICE = 1000;
-    public static final int LOTTO_TICKET_LENGTH = 6;
+    MIN_LOTTO_NUMBER(1),
+    MAX_LOTTO_NUMBER(45),
+    LOTTO_PRICE(1000),
+    LOTTO_TICKET_LENGTH(6);
+
+    private final int config;
+
+    LottoConfig(int config) {
+        this.config = config;
+    }
+
+    public int getConfig() {
+        return config;
+    }
 
 }

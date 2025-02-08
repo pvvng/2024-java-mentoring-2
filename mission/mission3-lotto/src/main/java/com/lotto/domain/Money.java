@@ -15,11 +15,11 @@ public class Money {
     }
 
     public int getLottoTicketAmount() {
-        return purchaseAmount / LottoConfig.LOTTO_PRICE;
+        return purchaseAmount / LottoConfig.LOTTO_PRICE.getConfig();
     }
 
     private void validatePurchaseAmount(int purchaseAmount) {
-        if (purchaseAmount < LottoConfig.LOTTO_PRICE) {
+        if (purchaseAmount < LottoConfig.LOTTO_PRICE.getConfig()) {
             throw new MinLottoPriceException(ErrorMessage.MIN_PRICE_ERROR.getMessage());
         }
     }

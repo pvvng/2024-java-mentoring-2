@@ -5,7 +5,7 @@ import com.lotto.common.LottoConfig;
 public class LottoNumberGenerator implements RandomNumberGenerator {
 
     public int getRandomNumber() {
-        return (int) (Math.random() * LottoConfig.MAX_LOTTO_NUMBER) + LottoConfig.MIN_LOTTO_NUMBER;
+        return (int) (Math.random() * LottoConfig.MAX_LOTTO_NUMBER.getConfig()) + LottoConfig.MIN_LOTTO_NUMBER.getConfig();
     }
 
 }

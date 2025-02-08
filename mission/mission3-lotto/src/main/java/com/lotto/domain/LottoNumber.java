@@ -11,7 +11,7 @@ public record LottoNumber(int lottoNumber) {
     }
 
     private void validateLottoNumber(int lottoNumber) {
-        if (lottoNumber < LottoConfig.MIN_LOTTO_NUMBER || lottoNumber > LottoConfig.MAX_LOTTO_NUMBER) {
+        if (lottoNumber < LottoConfig.MIN_LOTTO_NUMBER.getConfig() || lottoNumber > LottoConfig.MAX_LOTTO_NUMBER.getConfig()) {
             throw new InvalidLottoNumberException(ErrorMessage.INVALID_LOTTO_NUMBER_ERROR.getMessage());
         }
     }

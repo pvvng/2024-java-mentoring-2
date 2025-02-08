@@ -38,7 +38,7 @@ public class LottoTicketsGenerator {
     private List<LottoNumber> createLottoNumbers() {
         Set<LottoNumber> ticket = new HashSet<>();
 
-        while (ticket.size() < LottoConfig.LOTTO_TICKET_LENGTH) {
+        while (ticket.size() < LottoConfig.LOTTO_TICKET_LENGTH.getConfig()) {
             ticket.add(getLottoNumber());
         }
 
