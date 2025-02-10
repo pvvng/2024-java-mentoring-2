@@ -2,35 +2,44 @@ package com.lotto.controller;
 
 import com.lotto.service.DTO.LottoResponseDTO;
 import com.lotto.service.DTO.WinnerRequestDTO;
-import com.lotto.service.LottoService;
+
+import com.lotto.service.BuildLottoTicketService;
+import com.lotto.service.WinningStatisticsService;
 
 import com.lotto.view.InputView;
 import com.lotto.view.OutputView;
+
+import java.util.Map;
 
 public class LottoController {
 
     final private InputView inputView;
     final private OutputView outputView;
-    final private LottoService lottoService;
+    final private BuildLottoTicketService buildLottoTicketService;
+    final private WinningStatisticsService winningStatisticsService;
 
-    public LottoController(InputView inputView, OutputView outputView, LottoService lottoService){
+    public LottoController(InputView inputView, OutputView outputView, BuildLottoTicketService buildLottoTicketService, WinningStatisticsService winningStatisticsService){
         this.inputView = inputView;
         this.outputView = outputView;
-        this.lottoService = lottoService;
+        this.buildLottoTicketService = buildLottoTicketService;
+        this.winningStatisticsService = winningStatisticsService;
     }
 
     public void runLottoApp(){
         outputView.showPurchaseAmount();
 
         int purchaseAmount = inputView.getPurchaseAmount();
-        LottoResponseDTO lottoResDTO = lottoService.getLottoResponseDTO(purchaseAmount);
+        LottoResponseDTO lottoResDTO = buildLottoTicketService.getLottoResponseDTO(purchaseAmount);
 
         showTickets(lottoResDTO);
 
         outputView.showWinnerNumbersPrompt();
         String winnerNumbers = inputView.getWinnerString();
 
-        lottoService.getWinningStatistics(new WinnerRequestDTO(lottoResDTO.lottoTickets(), winnerNumbers));
+        WinnerRequestDTO winnerReqDTO = createWinnerRequestDTO(lottoResDTO, winnerNumbers);
+        Map<Integer, Integer> lottoStatistics = winningStatisticsService.getLottoStatistics(winnerReqDTO);
+
+        outputView.showWinStatistics(lottoStatistics);
     }
 
     private void showTickets(LottoResponseDTO lottoDTO ) {
@@ -39,6 +48,10 @@ public class LottoController {
         for(String ticket : lottoDTO.convertedLottoTickets()){
             outputView.showLotto(ticket);
         }
+    }
+
+    private WinnerRequestDTO createWinnerRequestDTO(LottoResponseDTO lottoResponseDTO, String winnerNumbers) {
+        return new WinnerRequestDTO(lottoResponseDTO.lottoTickets(), winnerNumbers);
     }
 
 }
