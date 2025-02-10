@@ -11,4 +11,8 @@ public record WinnerTicket(List<LottoNumber> winnerTicket) implements Ticket {
     public List<LottoNumber> getTicket() {
         return winnerTicket;
     }
+
+    public int getNumber(int index) {
+        return winnerTicket.get(index).lottoNumber();
+    }
 }
