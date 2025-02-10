@@ -20,16 +20,13 @@ public class LottoService {
     public LottoResponseDTO getLottoResponseDTO(int purchaseAmount){
         Money purchaseMoney = new Money(purchaseAmount);
 
-        return new LottoResponseDTO(
-                purchaseMoney.getLottoTicketAmount(),
-                generateLottoTickets(purchaseMoney)
-        );
-    }
-
-    private List<String> generateLottoTickets(Money purchaseMoney) {
         LottoTickets lottoTickets = lottoTicketsGenerator.getLottoTickets(purchaseMoney);
 
-        return convertTicketsToStringList(lottoTickets);
+        return new LottoResponseDTO(
+                purchaseMoney.getLottoTicketAmount(),
+                convertTicketsToStringList(lottoTickets),
+                lottoTickets
+        );
     }
 
     private List<String> convertTicketsToStringList(LottoTickets lottoTickets) {

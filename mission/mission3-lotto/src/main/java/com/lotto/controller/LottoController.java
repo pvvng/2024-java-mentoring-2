@@ -25,12 +25,15 @@ public class LottoController {
         LottoResponseDTO lottoDTO = lottoService.getLottoResponseDTO(purchaseAmount);
 
         showTickets(lottoDTO);
+
+        outputView.showWinnerNumbersPrompt();
+        String winnerNumbers = inputView.getWinnerString();
     }
 
     private void showTickets(LottoResponseDTO lottoDTO ) {
         outputView.showPurchaseHistory(lottoDTO.purchaseAmount());
 
-        for(String ticket : lottoDTO.lottoTickets()){
+        for(String ticket : lottoDTO.convertedLottoTickets()){
             outputView.showLotto(ticket);
         }
     }
