@@ -8,4 +8,7 @@ public record WinnerTicket(List<LottoNumber> winnerTicket) implements Ticket {
         validateTicketLength(winnerTicket);
     }
 
+    public List<LottoNumber> getTicket() {
+        return winnerTicket;
+    }
 }
