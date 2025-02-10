@@ -1,6 +1,7 @@
 package com.lotto.controller;
 
 import com.lotto.service.DTO.LottoResponseDTO;
+import com.lotto.service.DTO.WinnerRequestDTO;
 import com.lotto.service.LottoService;
 
 import com.lotto.view.InputView;
@@ -22,12 +23,14 @@ public class LottoController {
         outputView.showPurchaseAmount();
 
         int purchaseAmount = inputView.getPurchaseAmount();
-        LottoResponseDTO lottoDTO = lottoService.getLottoResponseDTO(purchaseAmount);
+        LottoResponseDTO lottoResDTO = lottoService.getLottoResponseDTO(purchaseAmount);
 
-        showTickets(lottoDTO);
+        showTickets(lottoResDTO);
 
         outputView.showWinnerNumbersPrompt();
         String winnerNumbers = inputView.getWinnerString();
+
+        lottoService.getWinningStatistics(new WinnerRequestDTO(lottoResDTO.lottoTickets(), winnerNumbers));
     }
 
     private void showTickets(LottoResponseDTO lottoDTO ) {
