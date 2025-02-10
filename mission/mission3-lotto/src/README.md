@@ -32,3 +32,15 @@
 ### Domain
 - 도메인은 앱 로직을 정의하는 곳이지 데이터를 가공할 수는 없다.
 - 데이터 가공은 서비스에서 진행
+
+# step2
+
+### 당첨 번호 (1,2, 3, ...) 출력 방법
+- nextLine 을 사용해야 중간에 space 되어도 안끊기는 전체 입력 문자열을 받을 수 있음
+- 근데 그냥 쓰면 이전 버퍼에 남은 줄바꿈 문자가 문제가 될 수 있어서 제거하고 돌려야함.
+  ```java
+  public String getWinnerString() {
+      scanner.nextLine();
+      return scanner.nextLine();
+  }
+  ```
