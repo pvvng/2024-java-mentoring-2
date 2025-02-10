@@ -8,10 +8,6 @@ public record WinnerTicket(List<LottoNumber> winnerTicket) implements Ticket {
         validateTicketLength(winnerTicket);
     }
 
-    public List<LottoNumber> getTicket() {
-        return winnerTicket;
-    }
-
     public int getNumber(int index) {
         return winnerTicket.get(index).lottoNumber();
     }

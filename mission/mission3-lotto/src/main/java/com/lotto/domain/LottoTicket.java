@@ -8,16 +8,21 @@ public record LottoTicket(List<LottoNumber> lottoTicket) implements Ticket {
         validateTicketLength(lottoTicket);
     }
 
-    public List<LottoNumber> getTicket(){
-        return lottoTicket;
-    }
-
     @Override
     public String toString() {
         return lottoTicket.stream()
                 .map(LottoNumber::lottoNumber)
                 .toList()
                 .toString();
+    }
+
+    public boolean isContain(LottoNumber number) {
+        return lottoTicket.stream()
+                .anyMatch(lottoNum -> lottoNum.lottoNumber() == number.lottoNumber());
+    }
+
+    public boolean isNumberAt(int index, int winnerNumber) {
+        return lottoTicket.get(index).lottoNumber() == winnerNumber;
     }
 
 }
