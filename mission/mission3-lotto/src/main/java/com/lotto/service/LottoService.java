@@ -1,6 +1,11 @@
 package com.lotto.service;
 
-import com.lotto.domain.*;
+import com.lotto.domain.LottoTicketsGenerator;
+import com.lotto.domain.WinnerTicketGenerator;
+import com.lotto.domain.Money;
+import com.lotto.domain.LottoTickets;
+import com.lotto.domain.WinnerTicket;
+import com.lotto.domain.LottoTicket;
 
 import com.lotto.service.DTO.LottoResponseDTO;
 import com.lotto.service.DTO.WinnerRequestDTO;
@@ -32,6 +37,7 @@ public class LottoService {
     public void getWinningStatistics(WinnerRequestDTO requestDTO) {
         WinnerTicket winnerTicket = winnerTicketGenerator.getWinnerTicket(requestDTO.winnerNumbers());
         LottoTickets lottoTickets = requestDTO.lottoTickets();
+
     }
 
     private List<String> convertTicketsToStringList(LottoTickets lottoTickets) {
