@@ -5,9 +5,10 @@ import com.lotto.domain.LottoWinningStatisticsCalculator;
 import com.lotto.domain.WinnerTicket;
 import com.lotto.domain.WinnerTicketGenerator;
 
-import com.lotto.service.DTO.WinnerRequestDTO;
+import com.lotto.service.DTO.WinningStatisticsRequestDTO;
+import com.lotto.service.DTO.WinningStatisticsResponseDTO;
 
-import java.util.Map;
+import java.util.List;
 
 public class WinningStatisticsService {
 
@@ -19,11 +20,24 @@ public class WinningStatisticsService {
         this.statisticsCalculator = statisticsCalculator;
     }
 
-    public Map<Integer, Integer> getLottoStatistics(WinnerRequestDTO requestDTO) {
+    public WinningStatisticsResponseDTO getResponseDTO(WinningStatisticsRequestDTO requestDTO) {
+        List<Integer> winningStatistics = getLottoStatistics(requestDTO);
+
+        int totalPrize = statisticsCalculator.getTotalPrize(winningStatistics);
+        float resultOfInvestment = (float) totalPrize / requestDTO.purchaseAmount();
+
+        return new WinningStatisticsResponseDTO(winningStatistics, getFormattedROI(resultOfInvestment));
+    }
+
+    private List<Integer> getLottoStatistics(WinningStatisticsRequestDTO requestDTO) {
         LottoTickets lottoTickets = requestDTO.lottoTickets();
         WinnerTicket winnerTicket = winnerTicketGenerator.getWinnerTicket(requestDTO.winnerNumbers());
 
-        Map<Integer, Integer> winningStatistics = statisticsCalculator.calculateWinningStatistics(lottoTickets, winnerTicket);
         return statisticsCalculator.calculateWinningStatistics(lottoTickets, winnerTicket);
     }
+
+    private String getFormattedROI(float resultOfInvestment) {
+        return String.format("%.2f", resultOfInvestment);
+    }
+
 }
