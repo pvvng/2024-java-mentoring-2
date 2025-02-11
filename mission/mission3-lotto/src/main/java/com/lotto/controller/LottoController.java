@@ -4,12 +4,11 @@ import com.lotto.service.DTO.LottoResponseDTO;
 import com.lotto.service.DTO.WinningStatisticsRequestDTO;
 
 import com.lotto.service.BuildLottoTicketService;
+import com.lotto.service.DTO.WinningStatisticsResponseDTO;
 import com.lotto.service.WinningStatisticsService;
 
 import com.lotto.view.InputView;
 import com.lotto.view.OutputView;
-
-import java.util.Map;
 
 public class LottoController {
 
@@ -37,9 +36,9 @@ public class LottoController {
         String winnerNumbers = inputView.getWinnerString();
 
         WinningStatisticsRequestDTO winningReqDTO = createWinnerRequestDTO(lottoResDTO, winnerNumbers, purchaseAmount);
-        Map<Integer, Integer> lottoStatistics = winningStatisticsService.getLottoStatistics(winningReqDTO);
+        WinningStatisticsResponseDTO winningResDTO = winningStatisticsService.getResponseDTO(winningReqDTO);
 
-        outputView.showWinStatistics(lottoStatistics);
+        showLottoResult(winningResDTO);
     }
 
     private void showTickets(LottoResponseDTO lottoDTO ) {
@@ -52,6 +51,12 @@ public class LottoController {
 
     private WinningStatisticsRequestDTO createWinnerRequestDTO(LottoResponseDTO lottoResponseDTO, String winnerNumbers, int purchaseAmount) {
         return new WinningStatisticsRequestDTO(lottoResponseDTO.lottoTickets(), winnerNumbers, purchaseAmount);
+    }
+
+    private void showLottoResult(WinningStatisticsResponseDTO winningResDTO) {
+        outputView.showStatisticsPrompt();
+        outputView.showWinStatistics(winningResDTO.matchCountMap());
+        outputView.showROI(winningResDTO.ROI());
     }
 
 }
