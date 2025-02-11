@@ -73,3 +73,16 @@
 - 위 식을 표현하기 위한 가장 좋은 자료구조는 뭘까
 - DBMS의 외래키처럼 사용되는게 `등수` 아닌가
 - `Map<MatchCount, Rank>`, `Map<Rank, Winnings>`를 만들어서 1번 map의 value가 2번 map의 key가 되도록 하면 되지 않을까.
+
+### 등수 자료구조
+- 다시 생각해보니까 확장성까지 고려하면 단순히 `Map<MatchCount, Rank>`를 사용할 수는 없겠다.
+```
+  교환권: <MatchCount : 5, Bounus : 0>
+  ---> 교환 결과: <rank : 3, reward : 1.5천>
+    
+  교환권: <MatchCount : 5, Bounus : 1>
+  ---> 교환 결과: <rank : 2, reward : 3천>
+```
+- 이렇게 구조를 짜는게 더 좋아보이는것 같기도 약간 toJSON 너낌띠로
+- 일단 보너스는 나중에 생각하고 정의만 해놓자
+- `교환권`을 받아서 MatchCount와 Bounus로 분리하고 그거에 맞게 결과를 반환하는 클래스, 메서드가 필요할 듯. 
