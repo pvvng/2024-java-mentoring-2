@@ -1,7 +1,7 @@
 package com.lotto.controller;
 
 import com.lotto.service.DTO.LottoResponseDTO;
-import com.lotto.service.DTO.WinnerRequestDTO;
+import com.lotto.service.DTO.WinningStatisticsRequestDTO;
 
 import com.lotto.service.BuildLottoTicketService;
 import com.lotto.service.WinningStatisticsService;
@@ -36,8 +36,8 @@ public class LottoController {
         outputView.showWinnerNumbersPrompt();
         String winnerNumbers = inputView.getWinnerString();
 
-        WinnerRequestDTO winnerReqDTO = createWinnerRequestDTO(lottoResDTO, winnerNumbers);
-        Map<Integer, Integer> lottoStatistics = winningStatisticsService.getLottoStatistics(winnerReqDTO);
+        WinningStatisticsRequestDTO winningReqDTO = createWinnerRequestDTO(lottoResDTO, winnerNumbers, purchaseAmount);
+        Map<Integer, Integer> lottoStatistics = winningStatisticsService.getLottoStatistics(winningReqDTO);
 
         outputView.showWinStatistics(lottoStatistics);
     }
@@ -50,8 +50,8 @@ public class LottoController {
         }
     }
 
-    private WinnerRequestDTO createWinnerRequestDTO(LottoResponseDTO lottoResponseDTO, String winnerNumbers) {
-        return new WinnerRequestDTO(lottoResponseDTO.lottoTickets(), winnerNumbers);
+    private WinningStatisticsRequestDTO createWinnerRequestDTO(LottoResponseDTO lottoResponseDTO, String winnerNumbers, int purchaseAmount) {
+        return new WinningStatisticsRequestDTO(lottoResponseDTO.lottoTickets(), winnerNumbers, purchaseAmount);
     }
 
 }
