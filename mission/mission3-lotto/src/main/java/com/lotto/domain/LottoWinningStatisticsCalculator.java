@@ -4,14 +4,10 @@ import com.lotto.common.LottoConfig;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class LottoWinningStatisticsCalculator {
 
-    public Map<Integer, Integer> calculateWinningStatistics(LottoTickets lottoTickets, WinnerTicket winnerTicket) {
+    public List<Integer> calculateWinningStatistics(LottoTickets lottoTickets, WinnerTicket winnerTicket) {
         List<Integer> statisticsList = new ArrayList<>();
 
         for (int ticketIndex = 0; ticketIndex < lottoTickets.tickets().size(); ticketIndex++) {
@@ -20,7 +16,27 @@ public class LottoWinningStatisticsCalculator {
             statisticsList.add(winCount);
         }
 
-        return getStatisticsMap(statisticsList);
+        return statisticsList;
+    }
+
+    public int getTotalPrize(List<Integer> statisticsList) {
+        int prizeSum = 0;
+
+        for (int matchCount : statisticsList) {
+            prizeSum += getPrize(getRewardVoucher(matchCount, false));
+        }
+
+        return prizeSum;
+    }
+
+    private RewardVoucher getRewardVoucher(int matchCount, boolean bonus) {
+        return RewardVoucher.create(matchCount, bonus);
+    }
+
+    private int getPrize(RewardVoucher voucher) {
+        LottoPrizeCalculator calculator = new LottoPrizeCalculator();
+
+        return calculator.getPrize(voucher);
     }
 
     private int loopLottoTickets(WinnerTicket winnerTicket, LottoTickets lottoTickets, int ticketIndex) {
@@ -43,21 +59,6 @@ public class LottoWinningStatisticsCalculator {
         }
 
         return 0;
-    }
-
-    private Map<Integer, Integer> getStatisticsMap(List<Integer> statisticsList) {
-        Map<Integer, Integer> statisticsMap = getFormattedStatisticsMap();
-
-        for (int countKey : statisticsList) {
-            statisticsMap.put(countKey, (statisticsMap.getOrDefault(countKey, 0) + 1));
-        }
-
-        return statisticsMap;
-    }
-
-    private Map<Integer, Integer> getFormattedStatisticsMap() {
-        return Stream.of(0, 1, 2, 3, 4, 5, 6)
-                .collect(Collectors.toMap(Function.identity(), v -> 0));
     }
 
 }
