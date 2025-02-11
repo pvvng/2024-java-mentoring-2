@@ -9,6 +9,7 @@ import com.lotto.service.DTO.WinningStatisticsRequestDTO;
 import com.lotto.service.DTO.WinningStatisticsResponseDTO;
 
 import java.util.List;
+import java.util.Map;
 
 public class WinningStatisticsService {
 
@@ -24,9 +25,11 @@ public class WinningStatisticsService {
         List<Integer> winningStatistics = getLottoStatistics(requestDTO);
 
         int totalPrize = statisticsCalculator.getTotalPrize(winningStatistics);
+        Map<Integer, Integer> matchCountMap = statisticsCalculator.getMatchCountMap(winningStatistics);
+
         float resultOfInvestment = (float) totalPrize / requestDTO.purchaseAmount();
 
-        return new WinningStatisticsResponseDTO(winningStatistics, getFormattedROI(resultOfInvestment));
+        return new WinningStatisticsResponseDTO(matchCountMap, getFormattedROI(resultOfInvestment));
     }
 
     private List<Integer> getLottoStatistics(WinningStatisticsRequestDTO requestDTO) {

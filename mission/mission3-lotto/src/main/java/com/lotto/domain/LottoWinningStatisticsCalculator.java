@@ -3,7 +3,9 @@ package com.lotto.domain;
 import com.lotto.common.LottoConfig;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class LottoWinningStatisticsCalculator {
 
@@ -17,6 +19,16 @@ public class LottoWinningStatisticsCalculator {
         }
 
         return statisticsList;
+    }
+
+    public Map<Integer, Integer> getMatchCountMap(List<Integer> statisticsList) {
+        Map<Integer, Integer> countMap = new HashMap<>();
+
+        for (int matchCount : statisticsList) {
+            countMap.put(matchCount, countMap.getOrDefault(matchCount, 0) + 1);
+        }
+
+        return countMap;
     }
 
     public int getTotalPrize(List<Integer> statisticsList) {
