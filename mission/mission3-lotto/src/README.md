@@ -86,3 +86,117 @@
 - 이렇게 구조를 짜는게 더 좋아보이는것 같기도 약간 toJSON 너낌띠로
 - 일단 보너스는 나중에 생각하고 정의만 해놓자
 - `교환권`을 받아서 MatchCount와 Bounus로 분리하고 그거에 맞게 결과를 반환하는 클래스, 메서드가 필요할 듯. 
+
+### 빌더 패턴
+
+- 메서드 체이닝을 통해 인스턴트 생성 가능
+- 다양한 필드값 설정
+- 확실히 직관적임
+- 옵셔널한 필드를 사용할 때 특히 유용하지 않을까?
+
+- #### 미션에서는 어디에 쓸수 있을까?
+
+  - **1. 로또/당첨 티켓 클래스/인터페이스**
+    - 로또 티켓과 당첨번호 티켓이 같은 인터페이스를 공유하니까 거기에 사용 가능할지도
+    - 예를 들어 당첨번호에는 optional 한 보너스 번호 메서드를 추가한다거나 하는 식으로
+    - 아예 랜덤 번호 생성도 여기서 해버릴까? => 나쁘지 않을지도 => 일단 가독성을 좋아질듯
+  - **2. 로또 결과 담는 클래스**
+    - 번호 맞힌 개수, 보너스 당첨 여부 등을 체이닝하면 괜찮을듯
+    - 이 클래스를 List에 담은 클래스를 일급 컬렉션으로 만들어도 괜찮은듯. 거기서 수익률, 당첨 번호 개수같은거 getter 메서드로 반환하기
+  
+- 예시)
+  ```java
+  public class Car {
+      private String name;
+      private String type;
+      private Boolean oil;
+      
+      // private constructor
+      private Car(Builder builder) {
+          this.name = builder.name;
+          this.type = builder.type;
+          this.oil = builder.oil;
+      }
+      
+      // 빌더 패턴은 독립적으로 동작해야하므로 static 으로 선언
+      public static class Builder {
+          private String name;
+          // 기본값
+          private String type = "oil";
+          private Boolean oil = true;
+        
+          // 필수 매개변수
+          public Builder(String name) {
+              this.name = name;
+          }
+          
+          public Builder withType(String type) {
+              this.type = type;
+              
+              return this;
+          }
+          
+          public Builder withOil(Boolean oil) {
+              this.oil = oil;
+              
+              return this;
+          }
+          
+          public Car build() {
+              return new Car(this);
+          }
+      }
+  }
+  
+  public class Main {
+      Car bmwCar = new Car.Builder("bmw").build();
+      
+      Car bmwDieselCar = new Car.Builder("bmw")
+              .withType("diesel")
+              .build();
+      
+      Car bmwNoOilElectronicCar = new Car.Builder("bmw")
+              .withType("electronic")
+              .withOil(false)
+              .build();
+  }
+  ```
+
+### 정적 팩토리 메서드
+
+- 객체를 생성하는 방식을 통제 및 간소화
+- 단일 객체 생성, 캐싱
+- 생성자 직접 호출 안함
+
+- #### 미션에서는 어디에 쓸수 있을까?
+  - 지금 로또 등수, 상금을 enum 으로 관리할건데 그걸 잘 반환하는 객체가 있었으면 좋겠음. 얘네는 상수니까 굳이 생성자가 필요없기도 하고 아무튼 괜찮을듯?
+
+
+- 예시)
+  ```java
+  public class Car {
+  
+      private String name;
+      private String type;
+      private Boolean oil;
+  
+      private Car(String name, String type, Boolean oil) {
+          this.name = name;
+          this.type = type;
+          this.oil = oil;
+      }
+  
+      public static Car createWithOil(String name) {
+          return new Car(name, "oil", true);
+      }
+  
+      public static Car createWithDiesel(String name) {
+          return new Car(name, "diesel", true);
+      }
+  
+      public static Car createWithoutOil(String name) {
+          return new Car(name, "electric", false);
+      }
+    
+  }
+  ```
