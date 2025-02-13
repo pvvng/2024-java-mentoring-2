@@ -1,3 +1,4 @@
+import com.lotto.common.exception.InvalidTicketLength;
 import com.lotto.domain.*;
 
 import org.junit.jupiter.api.Test;
@@ -66,24 +67,85 @@ public class TestLotto {
     }
 
     @Test
-    public void ticketTest() {
-        List<LottoNumber> customNumbers = List.of(
-                new LottoNumber(1), new LottoNumber(2), new LottoNumber(3),
-                new LottoNumber(6), new LottoNumber(5), new LottoNumber(4)
-        );
+    public void splitStringTest() {
 
-        Ticket autoTicket = Ticket.builder()
+        // given
+        String value = "1,2,3,   4,  5,6";
+        List<LottoNumber> expected = List.of(new LottoNumber(1));
+
+        // when
+        CustomLottoNumbersGenerator splitMaster = new CustomLottoNumbersGenerator();
+        List<LottoNumber> result = splitMaster.getNumbers(value);
+
+        // then
+        Assertions.assertEquals(result.getFirst().lottoNumber(), expected.getFirst().lottoNumber());
+    }
+
+    @Test
+    public void splitErrorTest() {
+        String value = "1,2,3,,  NaN,6";
+        String errorMessage = "입력된 값이 숫자가 아닙니다.";
+
+        // when & then
+        CustomLottoNumbersGenerator splitMaster = new CustomLottoNumbersGenerator();
+        RuntimeException thrown = Assertions.assertThrows(RuntimeException.class, () -> splitMaster.getNumbers(value));
+
+        Assertions.assertEquals(errorMessage, thrown.getMessage());
+    }
+
+    @Test
+    public void customTicketTest() {
+        // given
+        List<Integer> list = List.of(1, 2, 3, 4, 5, 6);
+        String expected = "[1, 2, 3, 4, 5, 6]";
+
+        // when
+        List<LottoNumber> numbers = list.stream()
+                .map(LottoNumber::new)
+                .toList();
+        String result = Ticket.builder()
+                .withNumbers(numbers)
+                .build()
+                .toString();
+
+        Assertions.assertEquals(expected, result);
+    }
+
+    @Test
+    public void autoTicketTest() {
+        // given
+        int expected = 6;
+
+        // when
+        Ticket ticket = Ticket.builder()
                 .withRandomNumbers()
                 .build();
+        int result = ticket.getLottoNumbers().size();
 
-        Ticket customTicket = Ticket.builder()
-                .withNumbers(customNumbers)
+        // then
+        Assertions.assertEquals(expected, result);
+    }
+
+    @Test
+    public void bonusTicketTest() {
+        // given
+        int expected = 43;
+
+        List<Integer> list = List.of(1, 2, 3, 4, 5, 6);
+        List<LottoNumber> numbers = list.stream()
+                .map(LottoNumber::new)
+                .toList();
+
+        // when
+        Ticket ticket = Ticket.builder()
+                .withNumbers(numbers)
+                .withBonusNumber(43)
                 .build();
 
-        Ticket winnerTicket = Ticket.builder()
-                .withNumbers(customNumbers)
-                .withBonusNumber(4)
-                .build();
+        int result = ticket.getBonus();
+
+        // then
+        Assertions.assertEquals(expected, result);
     }
 
 }
