@@ -1,11 +1,11 @@
 package com.lotto.service;
 
+import com.lotto.service.DTO.LottoResponseDTO;
+
 import com.lotto.domain.LottoTicketsGenerator;
 import com.lotto.domain.Money;
 import com.lotto.domain.LottoTickets;
-import com.lotto.domain.LottoTicket;
-
-import com.lotto.service.DTO.LottoResponseDTO;
+import com.lotto.domain.Ticket;
 
 import java.util.List;
 
@@ -32,7 +32,7 @@ public class BuildLottoTicketService {
     private List<String> convertTicketsToStringList(LottoTickets lottoTickets) {
         return lottoTickets.tickets()
                 .stream()
-                .map(LottoTicket::toString)
+                .map(Ticket::toString)
                 .toList();
     }
 

@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 
 import java.util.List;
-import java.util.stream.Stream;
 
 public class TestLotto {
 
@@ -67,48 +66,24 @@ public class TestLotto {
     }
 
     @Test
-    public void ticketSizeTest() {
-        // given
-        List<LottoNumber> lottoNumbers = Stream.of(1, 2, 3, 4, 5)
-                .map(LottoNumber::new)
-                .toList();
-        String errorMessage = "로또의 번호가 6개가 아닙니다.";
+    public void ticketTest() {
+        List<LottoNumber> customNumbers = List.of(
+                new LottoNumber(1), new LottoNumber(2), new LottoNumber(3),
+                new LottoNumber(6), new LottoNumber(5), new LottoNumber(4)
+        );
 
-        // when & then
-        RuntimeException thrown = Assertions.assertThrows(RuntimeException.class, () -> new WinnerTicket(lottoNumbers));
+        Ticket autoTicket = Ticket.builder()
+                .withRandomNumbers()
+                .build();
 
-        Assertions.assertEquals(errorMessage, thrown.getMessage());
-    }
+        Ticket customTicket = Ticket.builder()
+                .withNumbers(customNumbers)
+                .build();
 
-    @Test
-    public void splitTest() {
-        // given
-        String str = "1, 2,  3, 4,   5,6";
-        List<LottoNumber> lottoNumbers = Stream.of(1, 2, 3, 4, 5, 6)
-                .map(LottoNumber::new)
-                .toList();
-        WinnerTicket ticket = new WinnerTicket(lottoNumbers);
-        int expected = ticket.getNumber(2);
-
-        // when
-        WinnerTicketGenerator generator = new WinnerTicketGenerator();
-        WinnerTicket resultTicket = generator.getWinnerTicket(str);
-        int result = resultTicket.getNumber(2);
-
-        // then
-        Assertions.assertEquals(expected, result);
-    }
-
-    @Test
-    public void splitErrorTest() {
-        // given
-        String str = "1, string, 3";
-        String errorMessage = "입력된 값이 숫자가 아닙니다.";
-
-        // when & then
-        RuntimeException thrown = Assertions.assertThrows(RuntimeException.class, () -> new WinnerTicketGenerator().getWinnerTicket(str));
-
-        Assertions.assertEquals(errorMessage, thrown.getMessage());
+        Ticket winnerTicket = Ticket.builder()
+                .withNumbers(customNumbers)
+                .withBonusNumber(4)
+                .build();
     }
 
 }

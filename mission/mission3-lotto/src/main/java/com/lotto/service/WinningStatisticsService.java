@@ -1,9 +1,6 @@
 package com.lotto.service;
 
-import com.lotto.domain.LottoTickets;
-import com.lotto.domain.LottoWinningStatisticsCalculator;
-import com.lotto.domain.WinnerTicket;
-import com.lotto.domain.WinnerTicketGenerator;
+import com.lotto.domain.*;
 
 import com.lotto.service.DTO.WinningStatisticsRequestDTO;
 import com.lotto.service.DTO.WinningStatisticsResponseDTO;
@@ -13,11 +10,9 @@ import java.util.Map;
 
 public class WinningStatisticsService {
 
-    private final WinnerTicketGenerator winnerTicketGenerator;
     private final LottoWinningStatisticsCalculator statisticsCalculator;
 
-    public WinningStatisticsService(WinnerTicketGenerator winnerTicketGenerator, LottoWinningStatisticsCalculator statisticsCalculator) {
-        this.winnerTicketGenerator = winnerTicketGenerator;
+    public WinningStatisticsService(LottoWinningStatisticsCalculator statisticsCalculator) {
         this.statisticsCalculator = statisticsCalculator;
     }
 
@@ -34,7 +29,10 @@ public class WinningStatisticsService {
 
     private List<Integer> getLottoStatistics(WinningStatisticsRequestDTO requestDTO) {
         LottoTickets lottoTickets = requestDTO.lottoTickets();
-        WinnerTicket winnerTicket = winnerTicketGenerator.getWinnerTicket(requestDTO.winnerNumbers());
+        List<LottoNumber> winnerNumbers = new CustomLottoNumbersGenerator().getNumbers(requestDTO.winnerNumbers());
+        Ticket winnerTicket = Ticket.builder()
+                .withNumbers(winnerNumbers)
+                .build();
 
         return statisticsCalculator.calculateWinningStatistics(lottoTickets, winnerTicket);
     }

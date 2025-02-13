@@ -7,7 +7,8 @@ public enum ErrorMessage {
     MIN_PRICE_ERROR("로또를 구매하기 위한 최소 금액은 1000원입니다."),
     INVALID_LOTTO_NUMBER_ERROR("로또 숫자가 1~45 사이의 범위에 존재하지 않습니다."),
     INVALID_TICKET_LENGTH_ERROR("로또의 번호가 6개가 아닙니다."),
-    INVALID_PRIZE_MONEY_PLACE_ERROR("허용된 등수 인덱스 범위가 아닙니다. (허용된 인덱스 범위 : 0~4)");
+    INVALID_PRIZE_MONEY_PLACE_ERROR("허용된 등수 인덱스 범위가 아닙니다. (허용된 인덱스 범위 : 0~4)"),
+    NOT_ALLOWED_TICKET_TYPE("보너스 번호는 사용자 지정 티켓에서만 사용할 수 있습니다.");
 
     private final String message;
 

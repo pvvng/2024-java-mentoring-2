@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class LottoWinningStatisticsCalculator {
 
-    public List<Integer> calculateWinningStatistics(LottoTickets lottoTickets, WinnerTicket winnerTicket) {
+    public List<Integer> calculateWinningStatistics(LottoTickets lottoTickets, Ticket winnerTicket) {
         List<Integer> statisticsList = new ArrayList<>();
 
         for (int ticketIndex = 0; ticketIndex < lottoTickets.tickets().size(); ticketIndex++) {
@@ -51,9 +51,9 @@ public class LottoWinningStatisticsCalculator {
         return calculator.getPrize(voucher);
     }
 
-    private int loopLottoTickets(WinnerTicket winnerTicket, LottoTickets lottoTickets, int ticketIndex) {
+    private int loopLottoTickets(Ticket winnerTicket, LottoTickets lottoTickets, int ticketIndex) {
+        Ticket nowTicket = lottoTickets.tickets().get(ticketIndex);
         int count = 0;
-        LottoTicket nowTicket = lottoTickets.tickets().get(ticketIndex);
 
         for (int i = 0; i < LottoConfig.LOTTO_TICKET_LENGTH.getConfig(); i++) {
             int winNumber = winnerTicket.getNumber(i);

@@ -6,17 +6,10 @@ import com.lotto.common.exception.NaNException;
 import java.util.Arrays;
 import java.util.List;
 
-public class WinnerTicketGenerator {
-
+public class CustomLottoNumbersGenerator {
     final String SPLIT_REGEX = "\\s*,\\s*";
 
-    public WinnerTicket getWinnerTicket(String winnerNumber) {
-        List<LottoNumber> winnerNumbers = convertWinnerString(winnerNumber);
-
-        return buildWinnerTicket(winnerNumbers);
-    }
-
-    private List<LottoNumber> convertWinnerString(String winnerNumber) {
+    public List<LottoNumber> getNumbers(String winnerNumber) {
         return Arrays.stream(winnerNumber.split(SPLIT_REGEX))
                 .map(this::parseInt)
                 .map(LottoNumber::new)
@@ -29,10 +22,6 @@ public class WinnerTicketGenerator {
         } catch (NumberFormatException e) {
             throw new NaNException(ErrorMessage.NAN_ERROR.getMessage());
         }
-    }
-
-    private WinnerTicket buildWinnerTicket(List<LottoNumber> winnerNumbers) {
-        return new WinnerTicket(winnerNumbers);
     }
 
 }
