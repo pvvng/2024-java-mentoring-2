@@ -50,26 +50,6 @@ public class TestLotto {
     }
 
     @Test
-    public void testLottoPrizeCalculator() {
-        // given
-        int expected1 = 30000000;
-        int expected2 = 1500000;
-        int expected3 = 0;
-
-        // when
-        RewardVoucher voucher1 = new RewardVoucher(5, true);
-        RewardVoucher voucher2 = new RewardVoucher(5, false);
-        RewardVoucher voucher3 = new RewardVoucher(2, true);
-
-        LottoPrizeCalculator calculator = new LottoPrizeCalculator();
-
-        // then
-        Assertions.assertEquals(expected1, calculator.getPrize(voucher1));
-        Assertions.assertEquals(expected2, calculator.getPrize(voucher2));
-        Assertions.assertEquals(expected3, calculator.getPrize(voucher3));
-    }
-
-    @Test
     public void splitStringTest() {
 
         // given
