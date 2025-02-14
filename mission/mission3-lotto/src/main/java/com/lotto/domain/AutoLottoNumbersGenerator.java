@@ -6,21 +6,18 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class AutoLottoNumbersGenerator {
-
-    private final List<LottoNumber> numbers;
+public class AutoLottoNumbersGenerator implements LottoNumbersGenerator {
 
     private AutoLottoNumbersGenerator() {
-        this.numbers = createRandomLottoNumbers();
     }
 
-    public static List<LottoNumber> getNumbers() {
-        return new AutoLottoNumbersGenerator().numbers;
+    public static LottoNumbersGenerator create() {
+        return new AutoLottoNumbersGenerator();
     }
 
-    private List<LottoNumber> createRandomLottoNumbers() {
+    @Override
+    public List<LottoNumber> getNumbers() {
         Set<LottoNumber> ticket = new HashSet<>();
-
         while (ticket.size() < LottoConfig.LOTTO_TICKET_LENGTH.getConfig()) {
             ticket.add(new LottoNumber(getRandomNumber()));
         }

@@ -6,20 +6,22 @@ import com.lotto.common.exception.NaNException;
 import java.util.Arrays;
 import java.util.List;
 
-public class CustomLottoNumbersGenerator {
+public class CustomLottoNumbersGenerator implements LottoNumbersGenerator {
+
     private static final String SPLIT_REGEX = "\\s*,\\s*";
-    private final List<LottoNumber> numbers;
+    private final String stringNumbers;
 
-    private CustomLottoNumbersGenerator(String winnerNumber) {
-        this.numbers = parseNumbers(winnerNumber);
+    private CustomLottoNumbersGenerator(String stringNumbers) {
+        this.stringNumbers = stringNumbers;
     }
 
-    public static List<LottoNumber> getNumbers(String winnerNumber) {
-        return new CustomLottoNumbersGenerator(winnerNumber).numbers;
+    public static LottoNumbersGenerator create(String input) {
+        return new CustomLottoNumbersGenerator(input);
     }
 
-    private List<LottoNumber> parseNumbers(String winnerNumber) {
-        return Arrays.stream(winnerNumber.split(SPLIT_REGEX))
+    @Override
+    public List<LottoNumber> getNumbers() {
+        return Arrays.stream(stringNumbers.split(SPLIT_REGEX))
                 .map(this::parseInt)
                 .map(LottoNumber::new)
                 .toList();
@@ -32,4 +34,5 @@ public class CustomLottoNumbersGenerator {
             throw new NaNException(ErrorMessage.NAN_ERROR.getMessage());
         }
     }
+
 }
