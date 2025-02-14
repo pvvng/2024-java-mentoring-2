@@ -1,12 +1,9 @@
 package com.lotto.domain;
 
 import com.lotto.common.ErrorMessage;
-import com.lotto.common.LottoConfig;
 import com.lotto.common.exception.InvalidTicketLength;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class Ticket {
 
@@ -58,7 +55,7 @@ public class Ticket {
         private TicketType type;
 
         public Builder withRandomNumbers() {
-            this.lottoNumbers = createRandomLottoNumbers();
+            this.lottoNumbers = AutoLottoNumbersGenerator.getNumbers();
             this.type = TicketType.AUTO;
 
             return this;
@@ -94,22 +91,10 @@ public class Ticket {
             }
         }
 
-        private List<LottoNumber> createRandomLottoNumbers() {
-            Set<LottoNumber> ticket = new HashSet<>();
-
-            while (ticket.size() < LottoConfig.LOTTO_TICKET_LENGTH.getConfig()) {
-                ticket.add(new LottoNumber(getRandomNumber()));
-            }
-
-            return ticket.stream().toList();
-        }
-
-        private int getRandomNumber() {
-            return (int) (Math.random() * LottoConfig.MAX_LOTTO_NUMBER.getConfig()) + LottoConfig.MIN_LOTTO_NUMBER.getConfig();
-        }
     }
 
     public enum TicketType {
         AUTO, CUSTOM, WINNER
     }
+
 }
