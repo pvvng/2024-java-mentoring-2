@@ -7,9 +7,18 @@ import java.util.Arrays;
 import java.util.List;
 
 public class CustomLottoNumbersGenerator {
-    final String SPLIT_REGEX = "\\s*,\\s*";
+    private static final String SPLIT_REGEX = "\\s*,\\s*";
+    private final List<LottoNumber> numbers;
 
-    public List<LottoNumber> getNumbers(String winnerNumber) {
+    private CustomLottoNumbersGenerator(String winnerNumber) {
+        this.numbers = parseNumbers(winnerNumber);
+    }
+
+    public static List<LottoNumber> getNumbers(String winnerNumber) {
+        return new CustomLottoNumbersGenerator(winnerNumber).numbers;
+    }
+
+    private List<LottoNumber> parseNumbers(String winnerNumber) {
         return Arrays.stream(winnerNumber.split(SPLIT_REGEX))
                 .map(this::parseInt)
                 .map(LottoNumber::new)
@@ -23,5 +32,4 @@ public class CustomLottoNumbersGenerator {
             throw new NaNException(ErrorMessage.NAN_ERROR.getMessage());
         }
     }
-
 }
