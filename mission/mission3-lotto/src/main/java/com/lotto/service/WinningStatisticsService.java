@@ -1,46 +1,38 @@
 package com.lotto.service;
 
 import com.lotto.domain.generator.CustomLottoNumbersGenerator;
+import com.lotto.domain.generator.LottoResultsGenerator;
 import com.lotto.domain.model.LottoNumber;
-import com.lotto.domain.LottoWinningStatisticsCalculator;
 import com.lotto.domain.model.Ticket;
+import com.lotto.domain.vo.LottoResults;
 
 import com.lotto.service.DTO.WinningStatisticsRequestDTO;
 import com.lotto.service.DTO.WinningStatisticsResponseDTO;
 
 import java.util.List;
-import java.util.Map;
 
 public class WinningStatisticsService {
 
-    private final LottoWinningStatisticsCalculator statisticsCalculator;
-
-    public WinningStatisticsService(LottoWinningStatisticsCalculator statisticsCalculator) {
-        this.statisticsCalculator = statisticsCalculator;
-    }
-
     public WinningStatisticsResponseDTO getResponseDTO(WinningStatisticsRequestDTO requestDTO) {
-        List<Integer> winningStatistics = getLottoStatistics(requestDTO);
+        LottoResults lottoResults = getLottoResults(requestDTO);
+        String ROI = getFormattedROI(lottoResults.getTotalPrize(), requestDTO.purchaseAmount());
 
-        int totalPrize = statisticsCalculator.getTotalPrize(winningStatistics);
-        Map<Integer, Integer> matchCountMap = statisticsCalculator.getMatchCountMap(winningStatistics);
-
-        float resultOfInvestment = (float) totalPrize / requestDTO.purchaseAmount();
-
-        return new WinningStatisticsResponseDTO(matchCountMap, getFormattedROI(resultOfInvestment));
+        return new WinningStatisticsResponseDTO(lottoResults.getMatchCountMap(), ROI);
     }
 
-    private List<Integer> getLottoStatistics(WinningStatisticsRequestDTO requestDTO) {
+    private LottoResults getLottoResults(WinningStatisticsRequestDTO requestDTO) {
         List<LottoNumber> winnerNumbers = CustomLottoNumbersGenerator.create(requestDTO.winnerNumbers())
                 .getNumbers();
         Ticket winnerTicket = Ticket.builder()
                 .withNumbers(winnerNumbers)
                 .build();
 
-        return statisticsCalculator.calculateWinningStatistics(requestDTO.lottoTickets(), winnerTicket);
+        return LottoResultsGenerator.generateResults(requestDTO.lottoTickets(), winnerTicket);
     }
 
-    private String getFormattedROI(float resultOfInvestment) {
+    private String getFormattedROI(int totalPrize, int purchaseAmount) {
+        float resultOfInvestment = (float) totalPrize / purchaseAmount;
+
         return String.format("%.2f", resultOfInvestment);
     }
 
