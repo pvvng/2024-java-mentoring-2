@@ -1,4 +1,4 @@
-package com.lotto.domain;
+package com.lotto.domain.generator;
 
 import com.lotto.domain.vo.Money;
 import com.lotto.domain.vo.LottoTickets;
@@ -9,13 +9,13 @@ import java.util.List;
 
 public class LottoTicketsGenerator {
 
-    public LottoTickets getLottoTickets(Money purchaseMoney) {
+    public static LottoTickets generateLottoTickets(Money purchaseMoney) {
         int purchaseAmount = purchaseMoney.getLottoTicketAmount();
 
         return new LottoTickets(createLottoTicketList(purchaseAmount));
     }
 
-    private List<Ticket> createLottoTicketList(int purchaseAmount) {
+    private static List<Ticket> createLottoTicketList(int purchaseAmount) {
         List<Ticket> tickets = new ArrayList<>();
 
         for (int i = 0; i < purchaseAmount; i++) {
@@ -25,7 +25,7 @@ public class LottoTicketsGenerator {
         return tickets;
     }
 
-    private Ticket getLottoTicket() {
+    private static Ticket getLottoTicket() {
         return Ticket.builder()
                 .withRandomNumbers()
                 .build();
