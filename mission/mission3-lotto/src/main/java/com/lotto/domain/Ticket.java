@@ -55,7 +55,7 @@ public class Ticket {
         private TicketType type;
 
         public Builder withRandomNumbers() {
-            this.lottoNumbers = AutoLottoNumbersGenerator.getNumbers();
+            this.lottoNumbers = AutoLottoNumbersGenerator.create().getNumbers();
             this.type = TicketType.AUTO;
 
             return this;

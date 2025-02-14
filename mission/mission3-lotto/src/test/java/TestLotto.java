@@ -74,7 +74,7 @@ public class TestLotto {
         List<LottoNumber> expected = List.of(new LottoNumber(1));
 
         // when
-        List<LottoNumber> result = CustomLottoNumbersGenerator.getNumbers(value);
+        List<LottoNumber> result = CustomLottoNumbersGenerator.create(value).getNumbers();
 
         // then
         Assertions.assertEquals(result.getFirst().lottoNumber(), expected.getFirst().lottoNumber());
@@ -86,7 +86,10 @@ public class TestLotto {
         String errorMessage = "입력된 값이 숫자가 아닙니다.";
 
         // when & then
-        RuntimeException thrown = Assertions.assertThrows(RuntimeException.class, () -> CustomLottoNumbersGenerator.getNumbers(value));
+        RuntimeException thrown = Assertions.assertThrows(
+                RuntimeException.class,
+                () -> CustomLottoNumbersGenerator.create(value).getNumbers()
+        );
 
         Assertions.assertEquals(errorMessage, thrown.getMessage());
     }

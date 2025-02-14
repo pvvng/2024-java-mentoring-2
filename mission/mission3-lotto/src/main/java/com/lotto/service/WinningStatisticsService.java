@@ -31,7 +31,8 @@ public class WinningStatisticsService {
     }
 
     private List<Integer> getLottoStatistics(WinningStatisticsRequestDTO requestDTO) {
-        List<LottoNumber> winnerNumbers = CustomLottoNumbersGenerator.getNumbers(requestDTO.winnerNumbers());
+        List<LottoNumber> winnerNumbers = CustomLottoNumbersGenerator.create(requestDTO.winnerNumbers())
+                .getNumbers();
         Ticket winnerTicket = Ticket.builder()
                 .withNumbers(winnerNumbers)
                 .build();
