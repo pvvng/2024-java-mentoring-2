@@ -14,11 +14,9 @@ import java.util.Map;
 public class WinningStatisticsService {
 
     private final LottoWinningStatisticsCalculator statisticsCalculator;
-    private final CustomLottoNumbersGenerator lottoNumbersGenerator;
 
-    public WinningStatisticsService(LottoWinningStatisticsCalculator statisticsCalculator, CustomLottoNumbersGenerator lottoNumbersGenerator) {
+    public WinningStatisticsService(LottoWinningStatisticsCalculator statisticsCalculator) {
         this.statisticsCalculator = statisticsCalculator;
-        this.lottoNumbersGenerator = lottoNumbersGenerator;
     }
 
     public WinningStatisticsResponseDTO getResponseDTO(WinningStatisticsRequestDTO requestDTO) {
@@ -33,7 +31,7 @@ public class WinningStatisticsService {
     }
 
     private List<Integer> getLottoStatistics(WinningStatisticsRequestDTO requestDTO) {
-        List<LottoNumber> winnerNumbers = lottoNumbersGenerator.getNumbers(requestDTO.winnerNumbers());
+        List<LottoNumber> winnerNumbers = CustomLottoNumbersGenerator.getNumbers(requestDTO.winnerNumbers());
         Ticket winnerTicket = Ticket.builder()
                 .withNumbers(winnerNumbers)
                 .build();

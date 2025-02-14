@@ -20,10 +20,9 @@ public class LottoApplication {
 
         LottoTicketsGenerator lottoTicketsGenerator = new LottoTicketsGenerator();
         LottoWinningStatisticsCalculator statisticsCalculator = new LottoWinningStatisticsCalculator();
-        CustomLottoNumbersGenerator lottoNumbersGenerator = new CustomLottoNumbersGenerator();
 
         BuildLottoTicketService buildLottoTicketService = new BuildLottoTicketService(lottoTicketsGenerator);
-        WinningStatisticsService winningStatisticsService = new WinningStatisticsService(statisticsCalculator, lottoNumbersGenerator);
+        WinningStatisticsService winningStatisticsService = new WinningStatisticsService(statisticsCalculator);
 
         LottoController lottoController = new LottoController(inputView, outputView, buildLottoTicketService, winningStatisticsService);
 
