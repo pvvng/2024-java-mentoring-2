@@ -1,5 +1,6 @@
 package com.lotto;
 
+import com.lotto.domain.CustomLottoNumbersGenerator;
 import com.lotto.domain.LottoTicketsGenerator;
 import com.lotto.domain.LottoWinningStatisticsCalculator;
 
@@ -19,9 +20,10 @@ public class LottoApplication {
 
         LottoTicketsGenerator lottoTicketsGenerator = new LottoTicketsGenerator();
         LottoWinningStatisticsCalculator statisticsCalculator = new LottoWinningStatisticsCalculator();
+        CustomLottoNumbersGenerator lottoNumbersGenerator = new CustomLottoNumbersGenerator();
 
         BuildLottoTicketService buildLottoTicketService = new BuildLottoTicketService(lottoTicketsGenerator);
-        WinningStatisticsService winningStatisticsService = new WinningStatisticsService(statisticsCalculator);
+        WinningStatisticsService winningStatisticsService = new WinningStatisticsService(statisticsCalculator, lottoNumbersGenerator);
 
         LottoController lottoController = new LottoController(inputView, outputView, buildLottoTicketService, winningStatisticsService);
 
