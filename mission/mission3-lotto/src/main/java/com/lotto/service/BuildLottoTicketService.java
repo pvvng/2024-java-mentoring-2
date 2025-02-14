@@ -3,7 +3,7 @@ package com.lotto.service;
 import com.lotto.service.DTO.LottoResponseDTO;
 
 import com.lotto.domain.LottoTicketsGenerator;
-import com.lotto.domain.model.Money;
+import com.lotto.domain.vo.Money;
 import com.lotto.domain.vo.LottoTickets;
 import com.lotto.domain.model.Ticket;
 

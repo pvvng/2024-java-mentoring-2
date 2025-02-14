@@ -1,4 +1,4 @@
-package com.lotto.domain.model;
+package com.lotto.domain.vo;
 
 import com.lotto.common.ErrorMessage;
 import com.lotto.common.LottoConfig;
