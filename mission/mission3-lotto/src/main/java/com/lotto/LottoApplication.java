@@ -1,6 +1,5 @@
 package com.lotto;
 
-import com.lotto.domain.CustomLottoNumbersGenerator;
 import com.lotto.domain.LottoTicketsGenerator;
 import com.lotto.domain.LottoWinningStatisticsCalculator;
 

@@ -1,6 +1,9 @@
-import com.lotto.common.exception.InvalidTicketLength;
 import com.lotto.domain.*;
 
+import com.lotto.domain.generator.CustomLottoNumbersGenerator;
+import com.lotto.domain.model.LottoNumber;
+import com.lotto.domain.model.Money;
+import com.lotto.domain.model.Ticket;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 

@@ -1,7 +1,8 @@
-package com.lotto.domain;
+package com.lotto.domain.generator;
 
 import com.lotto.common.ErrorMessage;
 import com.lotto.common.exception.NaNException;
+import com.lotto.domain.model.LottoNumber;
 
 import java.util.Arrays;
 import java.util.List;

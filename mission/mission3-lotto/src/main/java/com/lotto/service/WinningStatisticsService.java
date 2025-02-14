@@ -1,9 +1,9 @@
 package com.lotto.service;
 
-import com.lotto.domain.CustomLottoNumbersGenerator;
-import com.lotto.domain.LottoNumber;
+import com.lotto.domain.generator.CustomLottoNumbersGenerator;
+import com.lotto.domain.model.LottoNumber;
 import com.lotto.domain.LottoWinningStatisticsCalculator;
-import com.lotto.domain.Ticket;
+import com.lotto.domain.model.Ticket;
 
 import com.lotto.service.DTO.WinningStatisticsRequestDTO;
 import com.lotto.service.DTO.WinningStatisticsResponseDTO;

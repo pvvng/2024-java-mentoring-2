@@ -1,7 +1,8 @@
-package com.lotto.domain;
+package com.lotto.domain.model;
 
 import com.lotto.common.ErrorMessage;
 import com.lotto.common.exception.InvalidTicketLength;
+import com.lotto.domain.generator.AutoLottoNumbersGenerator;
 
 import java.util.List;
 

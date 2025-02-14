@@ -1,6 +1,8 @@
 package com.lotto.domain;
 
 import com.lotto.common.LottoConfig;
+import com.lotto.domain.model.Ticket;
+import com.lotto.domain.vo.LottoTickets;
 
 import java.util.ArrayList;
 import java.util.HashMap;

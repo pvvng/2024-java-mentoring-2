@@ -1,4 +1,6 @@
-package com.lotto.domain;
+package com.lotto.domain.vo;
+
+import com.lotto.domain.model.Ticket;
 
 import java.util.Collections;
 import java.util.List;

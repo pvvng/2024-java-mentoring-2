@@ -1,6 +1,7 @@
-package com.lotto.domain;
+package com.lotto.domain.generator;
 
 import com.lotto.common.LottoConfig;
+import com.lotto.domain.model.LottoNumber;
 
 import java.util.HashSet;
 import java.util.List;
