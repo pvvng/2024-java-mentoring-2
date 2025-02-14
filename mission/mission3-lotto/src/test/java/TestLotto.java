@@ -1,9 +1,10 @@
-import com.lotto.domain.*;
-
 import com.lotto.domain.generator.CustomLottoNumbersGenerator;
+
 import com.lotto.domain.model.LottoNumber;
-import com.lotto.domain.vo.Money;
 import com.lotto.domain.model.Ticket;
+
+import com.lotto.domain.vo.Money;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 
