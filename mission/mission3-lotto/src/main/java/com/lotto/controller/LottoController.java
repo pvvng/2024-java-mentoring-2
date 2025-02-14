@@ -41,7 +41,7 @@ public class LottoController {
         showLottoResult(winningResDTO);
     }
 
-    private void showTickets(LottoResponseDTO lottoDTO ) {
+    private void showTickets(LottoResponseDTO lottoDTO) {
         outputView.showPurchaseHistory(lottoDTO.purchaseAmount());
 
         for(String ticket : lottoDTO.convertedLottoTickets()){
